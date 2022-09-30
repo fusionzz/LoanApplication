@@ -1,0 +1,156 @@
+<div *ngIf="!isSuccess" class="container mt-3">
+<form id="LoanForm" [formGroup]="LoanForm" (submit)="onSubmit()">
+    <label for="AccountNumber" class="form-label">Account Number</label>
+    <input id="AccountNumber" maxlength="3" type="text" formControlName="AccountNumber" class="form-control">
+    <div *ngIf="LoanForm.controls.AccountNumber.invalid && (LoanForm.controls.AccountNumber.touched || LoanForm.controls.AccountNumber.dirty )">
+            <div *ngIf="LoanForm.controls.AccountNumber.errors?.['required']" class="alert alert-danger">
+                Account number is required
+            </div>
+            <div *ngIf="LoanForm.controls.AccountNumber.errors?.['minlength']" class="alert alert-danger">
+                Account number is 3 digits long
+            </div>
+            <div *ngIf="LoanForm.controls.AccountNumber.errors?.['pattern']" class="alert alert-danger">
+                Account number only includes digits
+            </div>
+    </div>
+
+
+    <div formGroupName="PersonalDetails">
+        <label for="Name" class="form-label">Name</label>
+        <input id="Name" type="text" formControlName="Name" class="form-control">
+
+        <div *ngIf="LoanForm.controls.PersonalDetails.controls.Name.invalid && (LoanForm.controls.PersonalDetails.controls.Name.dirty || LoanForm.controls.PersonalDetails.controls.Name.touched)"
+            class="alert alert-danger">
+            <div *ngIf="LoanForm.controls.PersonalDetails.controls.Name.errors?.['required']">
+                Name is required
+            </div>
+        </div>
+        
+
+        <label for="HomeAddress" class="form-label">Home Address</label>
+        <input id="HomeAddress" type="text" formControlName="HomeAddress" class="form-control">
+
+        <div *ngIf="LoanForm.controls.PersonalDetails.controls.HomeAddress.invalid && (LoanForm.controls.PersonalDetails.controls.HomeAddress.dirty || LoanForm.controls.PersonalDetails.controls.HomeAddress.touched)"
+            class="alert alert-danger">
+            <div *ngIf="LoanForm.controls.PersonalDetails.controls.HomeAddress.errors?.['required']">
+                Home address is required
+            </div>
+        </div>
+
+
+        <label for="PreviousAddress" class="form-label">Previous Address</label>
+        <input id="PreviousAddress" type="text" formControlName="PreviousAddress" class="form-control">
+
+        <div class="row">
+            <div class="col">
+                <label for="HomeNumber" class="form-label">Home Number</label>
+                <input id="HomeNumber" type="tel" formControlName="HomeNumber" class="form-control">
+            </div>
+
+            <div class="col">
+                <label for="Mobile" class="form-label">Mobile</label>
+                <input id="Mobile" type="tel" formControlName="Mobile" class="form-control">
+
+                <div *ngIf="LoanForm.controls.PersonalDetails.controls.Mobile.invalid && (LoanForm.controls.PersonalDetails.controls.Mobile.dirty || LoanForm.controls.PersonalDetails.controls.Mobile.touched)"
+            class="alert alert-danger">
+            <div *ngIf="LoanForm.controls.PersonalDetails.controls.Mobile.errors?.['required']">
+                Mobile is required
+            </div>
+        </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label for="Email" class="form-label">Email</label>
+                <input id="Email" type="email" formControlName="Email" class="form-control">
+
+                <div *ngIf="LoanForm.controls.PersonalDetails.controls.Email.invalid && (LoanForm.controls.PersonalDetails.controls.Email.dirty || LoanForm.controls.PersonalDetails.controls.Email.touched)">
+                <div *ngIf="LoanForm.controls.PersonalDetails.controls.Email.errors?.['required']" class="alert alert-danger">
+                    Email is required
+                </div>
+            </div>
+            <div *ngIf="LoanForm.controls.PersonalDetails.controls.Email.invalid && LoanForm.controls.PersonalDetails.controls.Email.touched">
+                <div *ngIf="LoanForm.controls.PersonalDetails.controls.Email.errors?.['email']" class="alert alert-danger">
+                    Please enter a valid email
+                </div>
+            </div>
+        
+            </div>
+
+            <div class="col">
+                <label for="DOB" class="form-label">Date of Birth</label>
+                <input id="DOB" type="date" formControlName="DOB" class="form-control">
+
+                <div *ngIf="LoanForm.controls.PersonalDetails.controls.DOB.invalid && (LoanForm.controls.PersonalDetails.controls.DOB.dirty || LoanForm.controls.PersonalDetails.controls.DOB.touched)"
+            class="alert alert-danger">
+            <div *ngIf="LoanForm.controls.PersonalDetails.controls.DOB.errors?.['required']">
+                Date of birth is required
+            </div>
+        </div>
+            </div>
+        </div>
+        
+                    
+        
+
+        <label for="MaritalStatus" class="form-label">Marital Status</label>
+        <select id="MaritalStatus" formControlName="MaritalStatus" class="form-select">
+            <option hidden>Select One</option>
+            <option *ngFor="let status of maritalOptions" [value]="status">{{status}}</option>
+        </select>
+
+        <label for="NumDependents" class="form-label">Number of Dependents</label>
+        <input id="NumDependents" type="number" formControlName="NumDependents" min="0" max="12" class="form-control">
+    </div>
+
+
+    <div formGroupName="EmploymentDetails">
+        <label for="Employer" class="form-label">Employer</label>
+        <input id="Employer" type="text" formControlName="Employer" class="form-control">
+
+        <label for="Address" class="form-label">Address</label>
+        <input id="Address" type="text" formControlName="Address" class="form-control">
+        <br>
+        Employment Type
+    <div class="mt-3 mb-3">
+        <label for="Permanent" class="form-check-label">Permanent</label>
+        <input id="Permanent" type="radio" formControlName="EmploymentType" value="Permanent" name="EmploymentType" class="form-check-input">
+        <label for="Temporary" class="form-check-label">Temporary</label>
+        <input id="Temporary" type="radio" formControlName="EmploymentType" value="Temporary" name="EmploymentType" class="form-check-input">
+    </div>
+
+        <label for="LengthOfService" class="form-label">Length of Service</label>
+        <input id="LengthOfService" type="number" min="0" max="100" formControlName="LengthOfService" class="form-control">
+
+        <label for="WorkEmail" class="form-label">Work Email</label>
+        <input id="WorkEmail" type="text" formControlName="WorkEmail" class="form-control">
+
+        <label for="WorkPhone" class="form-label">Work Phone</label>
+        <input id="WorkPhone" type="text" formControlName="WorkPhone" class="form-control">
+    </div>
+
+
+    <div formGroupName="LoanDetails">
+        <label for="Amount" class="form-label">Amount</label>
+        <input id="Amount" type="text" formControlName="Amount" class="form-control">
+
+        <label for="LoanPurpose" class="form-label">Loan Purpose</label>
+        <textarea form="LoanForm" placeholder="Briefly describe reason for loan" [maxlength]="maxPurpose" id="Loan Purpose" type="text" formControlName="LoanPurpose" class="form-control">
+        </textarea>
+    </div>
+
+    <div *ngIf="isError" class="alert alert-danger text-center mt-3">
+        There was an error submitting the form
+    </div>
+
+    <div class="text-center mt-3">
+        <button type="submit" [disabled]="!LoanForm.valid" class="btn btn-primary">Submit</button>
+    </div>
+    
+    
+</form>
+</div>
+<div *ngIf="isSuccess">
+    Form succesfully submitted
+</div>
